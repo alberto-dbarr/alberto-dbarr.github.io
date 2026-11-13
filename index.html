@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alberto Barragan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Alberto Barragan. Aerospace engineering student at the University of Washington. Projects, resume and photography.">
+<!-- EDIT: when your own domain is live, change alberto-dbarr.github.io below to it -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alberto Barragan | Aerospace Engineering, UW">
+<meta property="og:description" content="Aerospace engineering student at the University of Washington and Washington NASA Space Grant Scholar. Projects, resume and photography.">
+<meta property="og:url" content="https://alberto-dbarr.github.io/">
+<meta property="og:image" content="https://alberto-dbarr.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=Geist:wght@400;500;600&family=Sora:wght@400;600;700;800&display=swap">
+
+<!--
+  ===========================================================
+  HOW TO EDIT THIS SITE
+  ===========================================================
+  Everything you'll want to change is marked with a comment
+  that starts with "EDIT:". Press Ctrl+F and search "EDIT:".
+
+  Photos:   put image files in the "photos" folder using the
+            names in the Photography section.
+  Resume:   put your PDF in the main folder as "resume.pdf".
+  Projects: copy one whole <article class="project"> ... </article>
+            block, paste it under the others, and change the text.
+            The part inside <div class="more"> is what shows up
+            when someone clicks the project.
+  ===========================================================
+-->
+
+<style>
+/* Layout: dark drafting grid hero with a quick intro on the left and a UW A&A department card on the right; light sections below. */
+:root {
+  --paper: #f4f4f8;
+  --surface: #ffffff;
+  --ink: #15121f;
+  --ink-2: #4e4961;
+  --line: #d9d6e3;
+  --accent: #4b2e83;      /* UW purple */
+  --accent-2: #7a6532;    /* UW gold, darkened for light backgrounds */
+  --accent-soft: #ebe5f7;
+  --shock: #c2410c;       /* shock wave line in the diagram */
+
+  /* Headings and name: Sora, a modern geometric face. Body: Geist.
+     Small data labels: B612 Mono, designed by Airbus for cockpit displays. */
+  --font-name: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "B612 Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --maxw: 1140px;
+
+  /* Hero band stays dark in both themes, like a hangar at night */
+  --hero-bg: #130e24;
+  --hero-grid: rgba(183, 160, 242, 0.07);
+  --hero-ink: #f2eefb;
+  --hero-ink-2: #b9b0d2;
+  --hero-line: #3b3259;
+  --hero-draw: #a48ce6;
+  --hero-gold: #d6c38c;
+  --rbf: #c8102e;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #100e17;
+    --surface: #181522;
+    --ink: #ece9f4;
+    --ink-2: #a9a3bc;
+    --line: #2d2939;
+    --accent: #b7a0f2;
+    --accent-2: #d3bf86;
+    --accent-soft: #231d33;
+    --shock: #fb923c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #100e17;
+  --surface: #181522;
+  --ink: #ece9f4;
+  --ink-2: #a9a3bc;
+  --line: #2d2939;
+  --accent: #b7a0f2;
+  --accent-2: #d3bf86;
+  --accent-soft: #231d33;
+  --shock: #fb923c;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper);
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.mark {
+  font-family: var(--font-name); font-weight: 700; letter-spacing: -0.02em;
+  font-size: 1.05rem; color: var(--ink); text-decoration: none; white-space: nowrap;
+}
+.mark b { color: var(--accent); font-weight: 700; }
+.nav-links { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a.active { color: var(--accent); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background-color: var(--hero-bg);
+  background-image:
+    linear-gradient(var(--hero-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hero-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--hero-ink);
+  padding-block: clamp(44px, 7vw, 92px) clamp(44px, 6vw, 80px);
+  overflow: hidden;
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 64px); align-items: center; }
+.kicker {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em;
+  color: var(--hero-gold); margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--font-name);
+  font-size: clamp(2.8rem, 6vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1; letter-spacing: -0.035em;
+}
+.hero h1 span { display: block; }
+.hero h1 .second { color: var(--hero-draw); }
+.hero .lede { margin-top: 22px; max-width: 46ch; font-size: 1.15rem; line-height: 1.55; color: var(--hero-ink-2); }
+
+.now { margin: 28px 0 0; border-top: 1px solid var(--hero-line); max-width: 520px; }
+.now div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 12px; padding-block: 11px; border-bottom: 1px solid var(--hero-line); }
+.now dt { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; color: var(--hero-gold); padding-top: 3px; }
+.now dd { margin: 0; color: var(--hero-ink); }
+
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.hero-cta a {
+  font-weight: 600; font-size: 0.9375rem; padding: 11px 18px; text-decoration: none;
+  border: 1px solid var(--hero-draw);
+}
+.hero-cta .primary { background: var(--hero-draw); color: var(--hero-bg); }
+.hero-cta .ghost { color: var(--hero-ink); }
+.hero-cta a:hover { filter: brightness(1.1); }
+.hero-social { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 18px; }
+.hero-social a { color: var(--hero-ink-2); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+.hero-social a:hover { color: var(--hero-ink); text-decoration: underline; }
+
+/* Remove Before Flight tag */
+.rbf {
+  position: absolute; top: -6px; right: 4%;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--rbf); color: #fff;
+  font-family: var(--font-display); font-weight: 800; font-size: 0.6875rem; letter-spacing: 0.02em;
+  padding: 7px 12px 7px 10px; transform: rotate(4deg); transform-origin: top left;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+.rbf::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--hero-bg); box-shadow: inset 0 0 0 2px #fff; flex: none; }
+
+/* Title block, like the corner of an engineering drawing */
+.titleblock {
+  margin-top: 14px;
+  display: grid; grid-template-columns: 1.15fr 1.6fr 0.9fr;
+  border: 1.5px solid var(--hero-ink-2);
+}
+.titleblock > div { padding: 9px 12px 11px; border-right: 1px solid var(--hero-line); min-width: 0; }
+.titleblock > div:last-child { border-right: 0; }
+.titleblock .small { display: block; font-size: 0.625rem; margin-bottom: 2px; color: var(--hero-gold); }
+.titleblock .val { font-weight: 500; font-size: 0.875rem; line-height: 1.35; color: var(--hero-ink); }
+
+/* ---------- Sections ---------- */
+section { padding-block: clamp(56px, 8vw, 96px); border-top: 1px solid var(--line); }
+.sec-title { font-size: clamp(1.9rem, 4.2vw, 2.75rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: clamp(24px, 4vw, 40px); }
+/* a small drafting ruler under each section title */
+.sec-title::after {
+  content: ""; display: block; width: 132px; height: 9px; margin-top: 14px;
+  background:
+    linear-gradient(var(--accent), var(--accent)) left bottom / 100% 1.5px no-repeat,
+    repeating-linear-gradient(90deg, var(--accent) 0 1px, transparent 1px 12px) left bottom / 100% 5px no-repeat,
+    repeating-linear-gradient(90deg, var(--accent) 0 1.5px, transparent 1.5px 60px) left bottom / 100% 9px no-repeat;
+  opacity: 0.7;
+}
+
+/* About */
+.about-grid:not(:has(.me)) { grid-template-columns: minmax(0, 1fr); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.about-main { display: grid; gap: 32px; min-width: 0; }
+.me {
+  position: relative; margin: 0; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden;
+  background: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--line) 60%, transparent) 14px 15px), var(--surface);
+  border: 1px solid var(--line);
+  display: grid; place-items: center;
+}
+.me img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; }
+.me figcaption { font-size: 0.85rem; color: var(--ink-2); text-align: center; padding: 16px; }
+.about-text { display: grid; gap: 18px; max-width: 64ch; font-size: 1.0625rem; }
+.facts { margin: 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+.facts div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.facts dt { color: var(--ink-2); font-size: 0.9rem; }
+.facts dd { margin: 0; font-weight: 500; }
+
+/* Projects: rows you click to open */
+.project-list { border-top: 1.5px solid var(--ink); }
+.project { border-bottom: 1px solid var(--line); }
+.project { position: relative; }
+.project-row {
+  display: grid; grid-template-columns: 8rem minmax(0, 1fr) auto auto; gap: 8px 24px; align-items: center;
+  padding-block: 22px;
+}
+.project-open { all: unset; cursor: pointer; color: inherit; font: inherit; }
+/* the whole row is clickable */
+.project-open::after { content: ""; position: absolute; inset: 0; }
+.project-open:focus-visible { outline: none; }
+.project:has(.project-open:focus-visible) { outline: 2px solid var(--accent); outline-offset: 4px; }
+.project h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; transition: color .15s ease; }
+.project:hover h3 { color: var(--accent); }
+.thumb { width: 112px; height: 76px; object-fit: cover; border: 1px solid var(--line); }
+.project .summary { color: var(--ink-2); margin-top: 6px; max-width: 64ch; }
+.project .arrow { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--accent); white-space: nowrap; }
+.status {
+  display: inline-block; justify-self: start; align-self: start;
+  font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.02em;
+  padding: 3px 8px; border-radius: 999px; border: 1px solid currentColor; margin-top: 6px;
+}
+.status.progress { color: var(--accent-2); }
+.status.active { color: var(--accent); }
+.status.done { color: var(--ink-2); }
+.more { display: none; }
+.proj-img { width: 100%; max-height: 320px; object-fit: cover; border: 1px solid var(--line); }
+
+/* Project detail window */
+dialog {
+  width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+  padding: 0; border: 1.5px solid var(--ink); border-radius: 0;
+  background: var(--surface); color: var(--ink);
+}
+dialog::backdrop { background: rgba(10, 8, 18, 0.55); }
+.dlg-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 22px 24px 0; }
+.dlg-head h3 { font-size: 1.6rem; font-weight: 800; line-height: 1.15; }
+.dlg-close {
+  background: none; border: 1px solid var(--line); color: var(--ink); cursor: pointer;
+  font-family: var(--font-mono); font-size: 0.75rem; padding: 6px 10px; flex: none;
+}
+.dlg-actions { display: flex; gap: 8px; flex: none; }
+.dlg-close:hover { border-color: var(--accent); color: var(--accent); }
+.dlg-body { padding: 16px 24px 26px; display: grid; gap: 16px; }
+.dlg-body h4 { margin: 4px 0 0; font-family: var(--font-display); font-size: 1rem; font-weight: 700; }
+.dlg-body p, .dlg-body li { color: var(--ink-2); }
+.dlg-body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.specs { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1px solid var(--line); }
+.specs div { padding: 10px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+.specs dt { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.02em; color: var(--ink-2); }
+.specs dd { margin: 2px 0 0; font-weight: 500; color: var(--ink); }
+
+/* Photography */
+.photo-intro { max-width: 62ch; color: var(--ink-2); font-size: 1.0625rem; margin-bottom: 28px; }
+.gallery:not(:has(figure)) { display: none; }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.shot {
+  position: relative; margin: 0; aspect-ratio: 4 / 5; max-width: 100%; overflow: hidden;
+  background: repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--line) 60%, transparent) 14px 15px), var(--surface);
+  border: 1px solid var(--line);
+}
+.shot.wide { grid-column: span 2; aspect-ratio: auto; }
+.shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shot figcaption {
+  position: absolute; left: 10px; bottom: 10px;
+  font-size: 0.8rem; font-weight: 500; background: var(--paper); color: var(--ink); padding: 3px 9px;
+}
+.photo-links { margin-top: 22px; }
+.photo-rights { margin-top: 8px; font-size: 0.875rem; color: var(--ink-2); }
+
+/* Resume */
+.resume-grid { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: clamp(28px, 5vw, 64px); }
+.timeline { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.timeline > li { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 16px; padding-block: 20px; border-bottom: 1px solid var(--line); }
+.timeline .when { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--ink-2); font-variant-numeric: tabular-nums; padding-top: 3px; }
+.timeline h3 { font-size: 1.125rem; font-weight: 700; }
+.timeline .org { color: var(--accent); font-weight: 500; margin-top: 2px; }
+.timeline ul { margin: 8px 0 0; padding-left: 1.1em; color: var(--ink-2); display: grid; gap: 4px; }
+.resume-side { display: grid; gap: 14px; align-content: start; }
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 0.9375rem; padding: 12px 18px; text-decoration: none;
+  background: var(--accent); color: var(--paper); border: 1px solid var(--accent);
+}
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn:hover { filter: brightness(1.08); }
+.skills-label { margin-top: 10px; font-weight: 600; font-size: 0.9rem; }
+.skills { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.skills li { font-size: 0.8125rem; padding: 3px 9px; border: 1px solid var(--line); }
+
+/* Contact + footer: dark band that matches the intro */
+#contact, footer {
+  background-color: var(--hero-bg);
+  background-image:
+    linear-gradient(var(--hero-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hero-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--hero-ink);
+}
+#contact { border-top: 0; }
+#contact .sec-title { color: var(--hero-ink); }
+#contact .sec-title::after { background:
+    linear-gradient(var(--hero-draw), var(--hero-draw)) left bottom / 100% 1.5px no-repeat,
+    repeating-linear-gradient(90deg, var(--hero-draw) 0 1px, transparent 1px 12px) left bottom / 100% 5px no-repeat,
+    repeating-linear-gradient(90deg, var(--hero-draw) 0 1.5px, transparent 1.5px 60px) left bottom / 100% 9px no-repeat; }
+#contact .contact-rows { border-top-color: var(--hero-ink-2); }
+#contact .contact-row { border-bottom-color: var(--hero-line); }
+#contact .contact-row .k { color: var(--hero-ink-2); }
+#contact .contact-row .v { color: var(--hero-ink); }
+#contact a.v { color: var(--hero-draw); }
+#contact .copy { border-color: var(--hero-line); color: var(--hero-ink-2); }
+#contact .copy:hover { border-color: var(--hero-draw); color: var(--hero-ink); }
+footer .social a { color: var(--hero-ink-2); }
+footer .social a:hover { color: var(--hero-ink); }
+
+/* Contact form */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.cform { display: grid; gap: 14px; }
+.cform-intro { color: var(--hero-ink-2); }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 0.875rem; color: var(--hero-ink-2); }
+.field input, .field textarea, .field select {
+  font: inherit; color: var(--hero-ink); background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--hero-line); padding: 11px 12px; border-radius: 0; width: 100%;
+}
+.field select option { color: #15121f; }
+.field textarea { resize: vertical; min-height: 120px; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--hero-draw); outline-offset: 0; border-color: var(--hero-draw); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.send {
+  justify-self: start; font: inherit; font-weight: 600; cursor: pointer;
+  padding: 12px 20px; border: 1px solid var(--hero-draw); background: var(--hero-draw); color: var(--hero-bg);
+}
+.send:hover { filter: brightness(1.1); }
+.send:disabled { opacity: 0.6; cursor: wait; }
+.cform-status { min-height: 1.5em; font-size: 0.95rem; color: var(--hero-ink); }
+.cform-status.err { color: #ffb4a8; }
+
+/* Contact */
+.contact-rows { border-top: 1.5px solid var(--ink); }
+.contact-row { display: grid; grid-template-columns: 8rem minmax(0, 1fr) auto; align-items: center; gap: 16px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.contact-row .k { color: var(--ink-2); }
+.contact-row .v { font-size: 1.125rem; font-weight: 500; overflow-wrap: anywhere; }
+.copy { font-family: var(--font-mono); font-size: 0.75rem; background: none; border: 1px solid var(--line); color: var(--ink-2); padding: 6px 10px; cursor: pointer; }
+.copy:hover { border-color: var(--accent); color: var(--accent); }
+
+.social { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.social a { color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.social a:hover { color: var(--accent); }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-block: 24px 36px; border-top: 1px solid var(--hero-line); color: var(--hero-ink-2); font-size: 0.875rem; }
+
+/* ---------- Phone width ---------- */
+@media (max-width: 800px) {
+  .hero-grid, .about-grid, .resume-grid { grid-template-columns: minmax(0, 1fr); }
+  .titleblock { grid-template-columns: minmax(0, 1fr); }
+  .titleblock > div { border-right: 0; border-bottom: 1px solid var(--hero-line); }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .me { max-width: 320px; }
+  .titleblock > div:last-child { border-bottom: 0; }
+  .project-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .project-row .status { grid-column: 1 / -1; }
+  .project-row .arrow { display: none; }
+  .thumb { width: 84px; height: 60px; }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shot.wide { aspect-ratio: 3 / 2; }
+  .gallery { grid-auto-flow: dense; }
+  .timeline > li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .contact-grid { grid-template-columns: minmax(0, 1fr); }
+  .contact-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .contact-row .k { grid-column: 1 / -1; }
+  .nav-links { gap: 18px; }
+}
+@media (max-width: 480px) { .nav .mark { display: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.dept { margin: 0; position: relative; min-width: 0; }
+.dept-card {
+  position: relative;
+  border: 1.5px solid var(--hero-ink-2);
+  padding: clamp(22px, 3vw, 32px) clamp(22px, 3.5vw, 36px) clamp(24px, 3.2vw, 32px);
+  display: flex; flex-direction: column; gap: 10px;
+}
+.dept-mono {
+  align-self: flex-end;
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.03em;
+  font-size: clamp(3.5rem, 6vw, 5rem); line-height: 0.9;
+  color: var(--hero-draw); opacity: 0.28; margin-bottom: 14px;
+}
+.dept-school { font-family: var(--font-mono); font-size: 0.8rem; color: var(--hero-gold); }
+.dept-name { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; font-size: clamp(1.5rem, 2.8vw, 2.15rem); color: var(--hero-ink); max-width: 20ch; }
+.dept-sub { color: var(--hero-ink-2); font-size: 0.95rem; }
+.dept .rbf { z-index: 2; right: auto; left: 22px; top: -12px; }
+
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="mark" href="#top">Alberto <b>B.</b></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#photography">Photography</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ======================= HERO ======================= -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1><span>Alberto</span><span class="second">Barragan</span></h1>
+          <!-- EDIT: your quick intro -->
+          <p class="lede">I'm an aerospace engineering student at UW working toward a career in hypersonics and high speed flight. Here's what I'm working on right now.</p>
+
+          <!-- EDIT: what you're doing right now. Copy a <div> line to add one. -->
+          <dl class="now">
+            <div><dt>Boeing</dt><dd>Flight Sciences intern on the Static Loads team</dd></div>
+            <div><dt>NASA</dt><dd>Washington NASA Space Grant Scholar</dd></div>
+            <div><dt>SARP</dt><dd>Rocketry, Structures team (Integration)</dd></div>
+            <div><dt>Building</dt><dd>A flying wing UAV and an NFC powered business card</dd></div>
+          </dl>
+
+          <div class="hero-cta">
+            <a class="primary" href="#projects">See my projects</a>
+            <a class="ghost" href="#resume">Resume</a>
+          </div>
+          <!-- EDIT: social links -->
+          <p class="hero-social">
+            <a href="https://www.linkedin.com/in/abarra07/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="https://instagram.com/a_barr67" target="_blank" rel="noopener">Instagram ↗</a>
+            <a href="https://github.com/alberto-dbarr" target="_blank" rel="noopener">GitHub ↗</a>
+          </p>
+        </div>
+
+        <!-- EDIT: department card next to your name -->
+        <figure class="dept" aria-label="UW Aeronautics and Astronautics">
+          <span class="rbf">Remove before flight</span>
+          <div class="dept-card">
+            <span class="dept-mono" aria-hidden="true">A&amp;A</span>
+            <p class="dept-school">University of Washington</p>
+            <p class="dept-name">William E. Boeing Department of Aeronautics &amp; Astronautics</p>
+            <p class="dept-sub">College of Engineering · Seattle, WA</p>
+          </div>
+          <div class="titleblock" aria-label="Quick facts">
+            <div><span class="small">Open to</span><span class="val">Research and project opportunities</span></div>
+            <div><span class="small">Focus</span><span class="val">Hypersonics, high speed aircraft and spacecraft systems</span></div>
+            <div><span class="small">Based in</span><span class="val">Seattle, WA</span></div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================= ABOUT ======================= -->
+  <section id="about">
+    <div class="wrap">
+      <h2 class="sec-title">About</h2>
+      <div class="about-grid">
+        <!-- EDIT: add a photo of yourself to the photos folder named me.jpg -->
+        <figure class="me"><img src="photos/me.jpg" alt="Alberto sitting on a rocky mountain summit, looking out over the mountains" loading="lazy" onerror="this.parentElement.remove()"></figure>
+        <div class="about-main">
+        <!-- EDIT: your about me paragraphs. Add or remove <p> lines. -->
+        <div class="about-text">
+          <p>I'm a second year at the University of Washington with junior standing, studying Aeronautical &amp; Astronautical Engineering in the Honors Program. I started at UW with my associate degree already done.</p>
+          <p>This past summer I interned at Boeing in Everett on the Static Loads team in Flight Sciences. I'm also a Washington NASA Space Grant Scholar, which connects me with NASA researchers, events and internship pathways. On campus I'm on the Structures team in SARP, UW's rocketry club, and I'm building a flying wing drone from scratch with a friend.</p>
+          <p>Long term, I want to work as an aerospace systems engineer on hypersonic vehicles and the next generation of spacecraft.</p>
+        </div>
+        <!-- EDIT: quick facts list -->
+        <dl class="facts">
+          <div><dt>School</dt><dd>University of Washington, Honors</dd></div>
+          <div><dt>Standing</dt><dd>Second year, junior standing</dd></div>
+          <div><dt>Major</dt><dd>Aeronautical &amp; Astronautical Engineering</dd></div>
+          <div><dt>Experience</dt><dd>Boeing, Flight Sciences (Static Loads)</dd></div>
+          <div><dt>Clubs</dt><dd>SARP Structures, SHPE</dd></div>
+          <div><dt>Scholar</dt><dd>Washington NASA Space Grant</dd></div>
+        </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= PROJECTS ======================= -->
+  <!--
+    EDIT: To add a project, copy everything from <article class="project"> to </article>
+    and paste it under the last one. Status options (pick one):
+      <span class="status progress">In progress</span>
+      <span class="status active">Active</span>
+      <span class="status done">Completed</span>
+    Whatever is inside <div class="more"> shows in the popup when the project is clicked.
+  -->
+  <section id="projects">
+    <div class="wrap">
+      <h2 class="sec-title">Projects</h2>
+      <div class="project-list">
+
+        <article class="project" id="nfc-card">
+          <div class="project-row">
+            <span class="status progress">In progress</span>
+            <div class="ptext">
+              <h3><button class="project-open" type="button">NFC Powered LED Business Card</button></h3>
+              <p class="summary">A battery free circuit board business card that lights up 21 LEDs when you tap it on a phone.</p>
+            </div>
+            <img class="thumb" src="photos/project-nfc-card.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="arrow" aria-hidden="true">Details →</span>
+          </div>
+          <div class="more">
+            <!-- EDIT: add a photo named project-nfc-card.jpg to the photos folder and describe it in alt="..." -->
+            <img class="proj-img" src="photos/project-nfc-card.jpg" alt="The NFC business card circuit board" loading="lazy" onerror="this.remove()">
+            <p>This card has no battery. When you hold it against a phone, its antenna picks up energy from the phone's NFC field, and the NFC chip passes that power to a small microcontroller that runs an LED animation. At the same time, the phone reads a link to this website.</p>
+            <dl class="specs">
+              <div><dt>Microcontroller</dt><dd>ATtiny816</dd></div>
+              <div><dt>NFC chip</dt><dd>NXP NTAG I2C Plus</dd></div>
+              <div><dt>LEDs</dt><dd>21, Charlieplexed</dd></div>
+              <div><dt>Antenna</dt><dd>PCB coil, ~2.75 µH</dd></div>
+            </dl>
+            <h4>What I'm doing</h4>
+            <ul>
+              <li>Customizing Wilson Harper's open source design in KiCad</li>
+              <li>Ordering the boards fully assembled from JLCPCB</li>
+              <li>Flashing the firmware over UPDI and writing the NFC tag</li>
+            </ul>
+            <h4>Built with</h4>
+            <p>KiCad, Arduino (megaTinyCore), NXP TagWriter</p>
+          </div>
+        </article>
+
+        <article class="project" id="sarp">
+          <div class="project-row">
+            <span class="status active">Active</span>
+            <div class="ptext">
+              <h3><button class="project-open" type="button">SARP Rocketry, Structures Integration</button></h3>
+              <p class="summary">Member of UW's Society for Advanced Rocket Propulsion, on the Integration team within Structures.</p>
+            </div>
+            <img class="thumb" src="photos/project-sarp.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="arrow" aria-hidden="true">Details →</span>
+          </div>
+          <div class="more">
+            <!-- EDIT: add a photo named project-sarp.jpg to the photos folder and describe it in alt="..." -->
+            <img class="proj-img" src="photos/project-sarp.jpg" alt="SARP rocket structures work" loading="lazy" onerror="this.remove()">
+            <p>SARP is UW's student rocketry team. I joined in fall 2026 and work on the Integration team within Structures, where the focus is fitting the rocket's systems together into one vehicle that can survive flight.</p>
+            <dl class="specs">
+              <div><dt>Team</dt><dd>Structures</dd></div>
+              <div><dt>Sub team</dt><dd>Integration</dd></div>
+              <div><dt>Joined</dt><dd>Fall 2026</dd></div>
+            </dl>
+            <h4>What I'm learning</h4>
+            <ul>
+              <li>Rocket architecture and how the subsystems are laid out</li>
+              <li>The loads a rocket sees in flight and how the structure carries them</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" id="flying-wing">
+          <div class="project-row">
+            <span class="status progress">In progress</span>
+            <div class="ptext">
+              <h3><button class="project-open" type="button">Flying Wing UAV</button></h3>
+              <p class="summary">A mid size flying wing drone we're designing and building from scratch, frame and all.</p>
+            </div>
+            <img class="thumb" src="photos/project-flying-wing.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="arrow" aria-hidden="true">Details →</span>
+          </div>
+          <div class="more">
+            <!-- EDIT: add a photo named project-flying-wing.jpg to the photos folder and describe it in alt="..." -->
+            <img class="proj-img" src="photos/project-flying-wing.jpg" alt="Flying wing drone frame in progress" loading="lazy" onerror="this.remove()">
+            <p>A friend and I are building a flying wing drone similar in size to the Skywalker X8. Instead of buying a kit, we're making our own frame, and we're doing every part of the build together. The long term goal is autonomous, AI assisted flight, and we plan to turn the project into a registered student club at UW.</p>
+            <dl class="specs">
+              <div><dt>Layout</dt><dd>Flying wing</dd></div>
+              <div><dt>Size</dt><dd>Mid size</dd></div>
+              <div><dt>Skin</dt><dd>Fiberglass</dd></div>
+              <div><dt>Team</dt><dd>2 people</dd></div>
+            </dl>
+            <h4>Next up</h4>
+            <ul>
+              <li>Finalize the wing geometry</li>
+              <li>Build and test the frame</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project" id="flight-endurance">
+          <div class="project-row">
+            <span class="status done">Completed</span>
+            <div class="ptext">
+              <h3><button class="project-open" type="button">Flight Endurance Aircraft</button></h3>
+              <p class="summary">A fixed wing aircraft designed to stay in the air as long as possible. Placed 4th at State in 2024 and 2025.</p>
+            </div>
+            <img class="thumb" src="photos/project-flight-endurance.jpg" alt="" loading="lazy" onerror="this.remove()">
+            <span class="arrow" aria-hidden="true">Details →</span>
+          </div>
+          <div class="more">
+            <!-- EDIT: add a photo named project-flight-endurance.jpg to the photos folder and describe it in alt="..." -->
+            <img class="proj-img" src="photos/project-flight-endurance.jpg" alt="The flight endurance aircraft" loading="lazy" onerror="this.remove()">
+            <p>I engineered a fixed wing aircraft for maximum flight endurance, optimizing airfoil selection, wing loading and center of gravity placement to improve its lift to drag ratio. The design went through several rounds of CAD and flight testing.</p>
+            <dl class="specs">
+              <div><dt>Goal</dt><dd>Maximum flight time</dd></div>
+              <div><dt>Result</dt><dd>4th at State, 2024 and 2025</dd></div>
+              <div><dt>Process</dt><dd>Iterative CAD and flight tests</dd></div>
+            </dl>
+            <h4>What I worked on</h4>
+            <ul>
+              <li>Airfoil selection</li>
+              <li>Wing loading</li>
+              <li>Center of gravity placement</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= RESUME ======================= -->
+  <section id="resume">
+    <div class="wrap">
+      <h2 class="sec-title">Resume</h2>
+      <div class="resume-grid">
+        <!-- EDIT: experience, newest first. Copy one <li> ... </li> block to add more. -->
+        <ol class="timeline">
+          <li>
+            <span class="when">Jun 2026 to present</span>
+            <div>
+              <h3>NASA Space Grant Scholar</h3>
+              <p class="org">Washington NASA Space Grant Consortium, Seattle, WA</p>
+              <ul>
+                <li>Mentored on aerospace research, technical career development, and pathways into NASA and industry</li>
+                <li>Member of a select cohort of UW STEM students with access to NASA affiliated events, researchers and internship opportunities</li>
+                <li>Recognized for academic performance and a career focus aligned with NASA's aeronautics mission</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">Summer 2026</span>
+            <div>
+              <h3>Flight Sciences, Loads and Dynamics Intern</h3>
+              <p class="org">The Boeing Company, Static Loads Team, Everett, WA</p>
+              <ul>
+                <li>Performed loads and structural analysis supporting a commercial airplane program</li>
+                <li>Developed and ran an analysis database supporting engineering decisions</li>
+                <li>Collaborated with aerodynamics and structures experts to improve an analysis process and contribute to an internal engineering tool</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">2026 to 2027</span>
+            <div>
+              <h3>Resident Advisor</h3>
+              <p class="org">UW Housing &amp; Food Services, Terry Hall</p>
+              <ul><li>Support residents on two floors of Terry Hall</li></ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">2026 to 2027</span>
+            <div>
+              <h3>Peer Mentor</h3>
+              <p class="org">University of Washington</p>
+              <ul><li>Mentor incoming students through their first year</li></ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">Ongoing</span>
+            <div>
+              <h3>Owner and Photographer</h3>
+              <p class="org">Alberto D. Barragan Photography</p>
+              <ul><li>Event, graduation, real estate and drone photography for clients</li></ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">Before UW</span>
+            <div>
+              <h3>Engineering Department Intern</h3>
+              <p class="org">Yakima County</p>
+              <ul><li>Analyzed traffic flow using Excel based field data and site measurements, and prepared engineering reports that guided county decisions on stop signs, street lighting and bike lane placement</li></ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">Expected 2029</span>
+            <div>
+              <h3>B.S. Aeronautical &amp; Astronautical Engineering</h3>
+              <p class="org">University of Washington, Honors Program</p>
+              <ul><li>Honors Scholar</li></ul>
+            </div>
+          </li>
+          <li>
+            <span class="when">2025</span>
+            <div>
+              <h3>Associate in Science</h3>
+              <p class="org">Yakima Valley College</p>
+              <ul><li>Honors and Dean's List Scholar</li></ul>
+            </div>
+          </li>
+        </ol>
+
+        <aside class="resume-side">
+          <!-- EDIT: put your resume PDF in the main folder named resume.pdf -->
+          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">View full resume (PDF)</a>
+          <!-- EDIT: LinkedIn link -->
+          <a class="btn ghost" href="https://www.linkedin.com/in/abarra07/" target="_blank" rel="noopener">LinkedIn</a>
+          <!-- EDIT: your skills. Add tools you really use; recruiters skim these. -->
+          <p class="skills-label">Software</p>
+          <ul class="skills"><li>SolidWorks</li><li>Autodesk Inventor</li><li>MATLAB</li><li>Python</li><li>Excel data analysis</li><li>KiCad</li><li>Arduino</li></ul>
+          <p class="skills-label">Engineering</p>
+          <ul class="skills"><li>Structural analysis</li><li>Aeroelastic analysis</li><li>Loads analysis</li><li>Database development</li><li>Mechanics of materials</li><li>Dynamics</li><li>Thermodynamics</li></ul>
+          <p class="skills-label">Other</p>
+          <ul class="skills"><li>Bilingual: English and Spanish</li><li>Cross functional collaboration</li><li>Leadership (RA, peer mentor)</li><li>Drone operations</li><li>Photography</li></ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= PHOTOGRAPHY ======================= -->
+  <!--
+    EDIT: To add a photo, put it in the "photos" folder and copy one <figure> line below.
+    class="shot wide" makes a photo take up two spaces (use it for landscape photos).
+    Any photo that is missing is hidden automatically, so you can add them over time.
+    Change each alt="..." to a short real description, like "Aerial shot of a construction site in Bellevue".
+  -->
+  <section id="photography">
+    <div class="wrap">
+      <h2 class="sec-title">Photography</h2>
+      <p class="photo-intro">I run Alberto D. Barragan Photography around Seattle, shooting aviation, events, graduations, real estate and the outdoors. I work with a Canon R7 on the ground and a drone in the air.</p>
+      <div class="gallery">
+        <figure class="shot wide"><img src="photos/blue-angels.jpg" alt="Four U.S. Navy Blue Angels jets flying in diamond formation, seen from directly below" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Aviation</figcaption></figure>
+        <figure class="shot"><img src="photos/space-needle-night.jpg" alt="The Space Needle lit up at night, framed by dark trees" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Night</figcaption></figure>
+        <figure class="shot wide"><img src="photos/rcaf-harvards.jpg" alt="Two yellow RCAF Harvard trainers trailing smoke at an air show" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Aviation</figcaption></figure>
+        <figure class="shot"><img src="photos/nyc-street.jpg" alt="Avenue of the Americas in Manhattan at dusk, with One World Trade Center in the distance" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Street</figcaption></figure>
+        <figure class="shot"><img src="photos/wild-turkey.jpg" alt="Close up portrait of a wild turkey against a soft green background" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Wildlife</figcaption></figure>
+        <figure class="shot wide"><img src="photos/mountain-boulders.jpg" alt="Boulder field with fall colors and low clouds drifting through a mountain valley" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Landscape</figcaption></figure>
+        <figure class="shot wide"><img src="photos/trail-valley.jpg" alt="Hiking trail through ferns in a misty mountain valley" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Hiking</figcaption></figure>
+        <figure class="shot"><img src="photos/seahawks-parade.jpg" alt="Seahawks Super Bowl LX championship parade in front of the Space Needle" loading="lazy" onerror="this.parentElement.remove()"><figcaption>Events</figcaption></figure>
+      </div>
+      <p class="photo-links"><a href="https://instagram.com/a_barr67" target="_blank" rel="noopener">See more on Instagram @a_barr67 →</a></p>
+      <p class="photo-rights">All photos © Alberto D. Barragan Photography. Please ask before using them.</p>
+    </div>
+  </section>
+
+  <!-- ======================= CONTACT ======================= -->
+  <section id="contact">
+    <div class="wrap">
+      <h2 class="sec-title">Contact</h2>
+      <div class="contact-grid">
+      <!--
+        EDIT: Contact form. Messages are delivered to your email by Formspree, so your
+        address never appears on the site. Connected to Formspree form xyewzlbz.
+      -->
+      <form class="cform" id="contact-form" action="https://formspree.io/f/xyewzlbz" method="POST">
+        <p class="cform-intro">Send me a message and I'll get back to you.</p>
+        <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="cf-email">Your email</label><input id="cf-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="cf-topic">What's it about?</label>
+          <select id="cf-topic" name="topic">
+            <option>Engineering or research opportunity</option>
+            <option>Photography booking</option>
+            <option>Just saying hi</option>
+          </select></div>
+        <div class="field"><label for="cf-msg">Message</label><textarea id="cf-msg" name="message" rows="5" required></textarea></div>
+        <input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="send" type="submit" id="cf-send">Send message</button>
+        <p class="cform-status" id="cf-status" role="status"></p>
+      </form>
+      <div class="contact-rows">
+        <!-- EDIT: your LinkedIn URL -->
+        <div class="contact-row"><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/abarra07/" target="_blank" rel="noopener">linkedin.com/in/abarra07</a><span></span></div>
+        <div class="contact-row"><span class="k">Instagram</span><a class="v" href="https://instagram.com/a_barr67" target="_blank" rel="noopener">@a_barr67</a><span></span></div>
+        <div class="contact-row"><span class="k">GitHub</span><a class="v" href="https://github.com/alberto-dbarr" target="_blank" rel="noopener">github.com/alberto-dbarr</a><span></span></div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Alberto Barragan. All rights reserved.</span>
+    <!-- EDIT: your social links -->
+    <nav class="social" aria-label="Social links">
+      <a href="https://www.linkedin.com/in/abarra07/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://instagram.com/a_barr67" target="_blank" rel="noopener">Instagram ↗</a>
+      <a href="https://github.com/alberto-dbarr" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- Project popup (filled in automatically from the project you click) -->
+<dialog id="project-dialog" aria-labelledby="dlg-title">
+  <div class="dlg-head"><h3 id="dlg-title"></h3><div class="dlg-actions"><button class="dlg-close" type="button" id="dlg-link">Copy link</button><button class="dlg-close" type="button" id="dlg-close">Close ✕</button></div></div>
+  <div class="dlg-body" id="dlg-body"></div>
+</dialog>
+
+<script>
+/* ---------- Year + copy button ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Ctrl+C';
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  });
+});
+
+/* ---------- Contact form (sends through Formspree) ---------- */
+(function () {
+  var f = document.getElementById('contact-form'); if (!f) return;
+  var status = document.getElementById('cf-status'), btn = document.getElementById('cf-send');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.className = 'cform-status';
+    if (f.action.indexOf('YOUR_FORM_ID') !== -1) {
+      status.textContent = 'The form isn\'t connected yet. Please reach out on LinkedIn for now.';
+      status.className = 'cform-status err'; return;
+    }
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch(f.action, { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+      .then(function (r) {
+        if (r.ok) { f.reset(); status.textContent = 'Thanks! Your message was sent. I\'ll get back to you soon.'; }
+        else { throw new Error(); }
+      })
+      .catch(function () {
+        status.textContent = 'Your message didn\'t go through. Check your connection and try again, or reach me on LinkedIn.';
+        status.className = 'cform-status err';
+      })
+      .finally(function () { btn.disabled = false; btn.textContent = 'Send message'; });
+  });
+})();
+
+/* ---------- Project popups (each project also has its own link, like #flying-wing) ---------- */
+var dlg = document.getElementById('project-dialog');
+var openId = null;
+function openProject(p) {
+  openId = p.id;
+  document.getElementById('dlg-title').textContent = p.querySelector('.project-open').textContent;
+  var body = document.getElementById('dlg-body');
+  body.innerHTML = '';
+  body.appendChild(p.querySelector('.status').cloneNode(true));
+  body.insertAdjacentHTML('beforeend', p.querySelector('.more').innerHTML);
+  if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
+  try { history.replaceState(null, '', '#' + p.id); } catch (e) {}
+}
+document.querySelectorAll('.project').forEach(function (p) {
+  p.querySelector('.project-open').addEventListener('click', function () { openProject(p); });
+});
+document.getElementById('dlg-close').addEventListener('click', function () { dlg.close(); });
+dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener('close', function () {
+  if (openId && location.hash === '#' + openId) { try { history.replaceState(null, '', '#projects'); } catch (e) {} }
+  openId = null;
+});
+document.getElementById('dlg-link').addEventListener('click', function () {
+  var btn = this, url = location.href;
+  try { navigator.clipboard.writeText(url).then(function () { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 1600); }, function () { btn.textContent = url; }); }
+  catch (e) { btn.textContent = url; }
+});
+function openFromHash() {
+  var id = location.hash.slice(1);
+  var p = id && document.getElementById(id);
+  if (p && p.classList.contains('project')) openProject(p);
+}
+window.addEventListener('hashchange', openFromHash);
+openFromHash();
+
+/* ---------- Highlight the nav link for the section on screen ---------- */
+(function () {
+  var links = {};
+  document.querySelectorAll('.nav-links a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) {
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle('active', k === en.target.id); });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(function (sec) { io.observe(sec); });
+})();
+</script>
+</body>
+</html>
