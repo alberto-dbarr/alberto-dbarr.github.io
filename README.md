@@ -11,7 +11,7 @@ Put these in the **photos** folder (exact names):
 | me.jpg | Your photo in About (already added: the summit shot) |
 | Photography gallery | Already filled in (blue-angels.jpg, space-needle-night.jpg and more). To add one, drop it in photos and copy a figure line in index.html |
 | project-nfc-card.jpg | NFC card project popup |
-| project-sarp.jpg | SARP project popup |
+| project-sarp.jpg | SARP project popup (a SolidWorks screenshot of the nose cone works great) |
 | project-flying-wing.jpg | Flying wing project popup |
 | project-flight-endurance.jpg | Flight endurance aircraft popup |
 

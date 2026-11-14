@@ -279,7 +279,7 @@ section { padding-block: clamp(56px, 8vw, 96px); border-top: 1px solid var(--lin
 
 /* Project detail window */
 dialog {
-  width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+  width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow-y: auto;
   padding: 0; border: 1.5px solid var(--ink); border-radius: 0;
   background: var(--surface); color: var(--ink);
 }
@@ -295,9 +295,12 @@ dialog::backdrop { background: rgba(10, 8, 18, 0.55); }
 .dlg-body { padding: 16px 24px 26px; display: grid; gap: 16px; }
 .dlg-body h4 { margin: 4px 0 0; font-family: var(--font-display); font-size: 1rem; font-weight: 700; }
 .dlg-body p, .dlg-body li { color: var(--ink-2); }
-.dlg-body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.dlg-body ul, .dlg-body ol { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.dlg-body ol li { color: var(--ink-2); }
 .specs { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1px solid var(--line); }
 .specs div { padding: 10px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+.specs.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 520px) { .specs.three { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .specs dt { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.02em; color: var(--ink-2); }
 .specs dd { margin: 2px 0 0; font-weight: 500; color: var(--ink); }
 
@@ -474,7 +477,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <dl class="now">
             <div><dt>Boeing</dt><dd>Flight Sciences intern on the Static Loads team</dd></div>
             <div><dt>NASA</dt><dd>Washington NASA Space Grant Scholar</dd></div>
-            <div><dt>SARP</dt><dd>Rocketry, Structures team (Integration)</dd></div>
+            <div><dt>SARP</dt><dd>Rocketry, Structures team, designing the nose cone</dd></div>
             <div><dt>Building</dt><dd>A flying wing UAV and an NFC powered business card</dd></div>
           </dl>
 
@@ -520,7 +523,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
         <!-- EDIT: your about me paragraphs. Add or remove <p> lines. -->
         <div class="about-text">
           <p>I'm a second year at the University of Washington with junior standing, studying Aeronautical &amp; Astronautical Engineering in the Honors Program. I started at UW with my associate degree already done.</p>
-          <p>This past summer I interned at Boeing in Everett on the Static Loads team in Flight Sciences. I'm also a Washington NASA Space Grant Scholar, which connects me with NASA researchers, events and internship pathways. On campus I'm on the Structures team in SARP, UW's rocketry club, and I'm building a flying wing drone from scratch with a friend.</p>
+          <p>This past summer I interned at Boeing in Everett on the Static Loads team in Flight Sciences. I'm also a Washington NASA Space Grant Scholar, which connects me with NASA researchers, events and internship pathways. On campus I'm on the Structures team in SARP, UW's rocketry club, where I'm designing a lighter nose cone in SolidWorks, and a friend and I started a flying wing drone project that we're now growing into a registered student club at UW.</p>
           <p>Long term, I want to work as an aerospace systems engineer on hypersonic vehicles and the next generation of spacecraft.</p>
         </div>
         <!-- EDIT: quick facts list -->
@@ -564,18 +567,35 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="more">
             <!-- EDIT: add a photo named project-nfc-card.jpg to the photos folder and describe it in alt="..." -->
             <img class="proj-img" src="photos/project-nfc-card.jpg" alt="The NFC business card circuit board" loading="lazy" onerror="this.remove()">
-            <p>This card has no battery. When you hold it against a phone, its antenna picks up energy from the phone's NFC field, and the NFC chip passes that power to a small microcontroller that runs an LED animation. At the same time, the phone reads a link to this website.</p>
-            <dl class="specs">
+            <p>My business card has no battery, but when you tap it on a phone, 21 LEDs light up in an animation and the phone pulls up my website. I built it from an open source hardware design, customized the layout in KiCad, had the boards made, and programmed them myself.</p>
+            <dl class="specs three">
               <div><dt>Microcontroller</dt><dd>ATtiny816</dd></div>
               <div><dt>NFC chip</dt><dd>NXP NTAG I2C Plus</dd></div>
               <div><dt>LEDs</dt><dd>21, Charlieplexed</dd></div>
               <div><dt>Antenna</dt><dd>PCB coil, ~2.75 µH</dd></div>
+              <div><dt>Frequency</dt><dd>13.56 MHz</dd></div>
+              <div><dt>Battery</dt><dd>None</dd></div>
             </dl>
-            <h4>What I'm doing</h4>
+            <h4>Power from the phone</h4>
+            <p>When NFC is on, a phone puts out a magnetic field oscillating at 13.56 MHz. The copper spiral around the edge of the card is an antenna, and by Faraday's law that changing field induces a voltage in it. The coil is about 2.75 µH, and together with the roughly 50 pF inside the NFC chip it forms an LC circuit that resonates right at 13.56 MHz, since f = 1/(2π√(LC)). A small 1.5 pF capacitor lets the tuning be adjusted.</p>
+            <h4>The NFC chip</h4>
+            <p>The card uses an NXP NTAG I2C Plus. Most NFC tags only use the harvested energy to run themselves, but this chip rectifies it to DC and outputs the extra power to run other parts. That's what powers everything on the card.</p>
+            <h4>Sending the link</h4>
+            <p>The card doesn't actually transmit anything. The chip changes how much energy it absorbs from the field, and the phone reads those small dips as data. That's how it gets my link.</p>
+            <h4>The light show</h4>
+            <p>An ATtiny816 microcontroller runs at 1 MHz to save power and drives the LEDs with Charlieplexing. Since LEDs only conduct one way, x pins can control x(x − 1) LEDs, so 6 pins can handle up to 30. Only one LED is on at a time, but the code switches between them fast enough that it looks like one smooth animation.</p>
+            <h4>Power management</h4>
+            <p>The chip's datasheet limits the capacitance on its output to 220 nF, but the LEDs need a 10 µF capacitor to smooth out their current. The circuit charges that capacitor slowly through a resistor at startup, then after about 120 ms the microcontroller turns on a MOSFET that bypasses the resistor so the capacitor can do its job.</p>
+            <h4>Board layout</h4>
+            <p>There's no ground plane, because solid copper would block the magnetic field from reaching the antenna. The LED traces also leave a gap instead of forming a full loop, so they don't pick up the field and create eddy currents that would fight the antenna.</p>
+            <h4>What I learned</h4>
             <ul>
-              <li>Customizing Wilson Harper's open source design in KiCad</li>
-              <li>Ordering the boards fully assembled from JLCPCB</li>
-              <li>Flashing the firmware over UPDI and writing the NFC tag</li>
+              <li>How resonance works in a real circuit: the antenna only picks up useful energy at its tuned frequency, so the coil's shape and size are part of the electrical design</li>
+              <li>How NFC uses one magnetic field to carry both power and data, through energy harvesting and load modulation</li>
+              <li>How Charlieplexing trades lighting LEDs at the same time for using fewer pins, and why fast switching makes it look smooth</li>
+              <li>Why datasheet limits matter, like the 220 nF output limit, and how a MOSFET and resistor can work around one safely</li>
+              <li>How RF changes the layout rules: no ground plane near the antenna and no closed trace loops</li>
+              <li>How to prepare a board for professional assembly, including the BOM, placement files, part numbers and checking that every part matches its footprint</li>
             </ul>
             <h4>Built with</h4>
             <p>KiCad, Arduino (megaTinyCore), NXP TagWriter</p>
@@ -586,26 +606,34 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="project-row">
             <span class="status active">Active</span>
             <div class="ptext">
-              <h3><button class="project-open" type="button">SARP Rocketry, Structures Integration</button></h3>
-              <p class="summary">Member of UW's Society for Advanced Rocket Propulsion, on the Integration team within Structures.</p>
+              <h3><button class="project-open" type="button">SARP Rocketry, Nose Cone Design</button></h3>
+              <p class="summary">On the Structures team for UW's Society for Advanced Rocket Propulsion, designing a lighter nose cone in SolidWorks.</p>
             </div>
             <img class="thumb" src="photos/project-sarp.jpg" alt="" loading="lazy" onerror="this.remove()">
             <span class="arrow" aria-hidden="true">Details →</span>
           </div>
           <div class="more">
-            <!-- EDIT: add a photo named project-sarp.jpg to the photos folder and describe it in alt="..." -->
-            <img class="proj-img" src="photos/project-sarp.jpg" alt="SARP rocket structures work" loading="lazy" onerror="this.remove()">
-            <p>SARP is UW's student rocketry team. I joined in fall 2026 and work on the Integration team within Structures, where the focus is fitting the rocket's systems together into one vehicle that can survive flight.</p>
-            <dl class="specs">
+            <!-- EDIT: add a photo named project-sarp.jpg (a SolidWorks screenshot works great) and describe it in alt="..." -->
+            <img class="proj-img" src="photos/project-sarp.jpg" alt="SolidWorks model of the SARP rocket nose cone" loading="lazy" onerror="this.remove()">
+            <p>SARP, the Society for Advanced Rocket Propulsion, is UW's student rocketry team. I joined in fall 2026 and work on the Structures team, where I'm designing the rocket's nose cone in SolidWorks. My main goal is making it lighter while keeping the strength it needs to survive the flight.</p>
+            <dl class="specs three">
+              <div><dt>Club</dt><dd>SARP, UW</dd></div>
               <div><dt>Team</dt><dd>Structures</dd></div>
-              <div><dt>Sub team</dt><dd>Integration</dd></div>
+              <div><dt>Part</dt><dd>Nose cone</dd></div>
+              <div><dt>Software</dt><dd>SolidWorks</dd></div>
+              <div><dt>Goal</dt><dd>Reduce mass</dd></div>
               <div><dt>Joined</dt><dd>Fall 2026</dd></div>
             </dl>
-            <h4>What I'm learning</h4>
+            <h4>Why weight matters</h4>
+            <p>Every bit of mass in the structure is mass the motor has to carry, so a lighter airframe means a higher apogee and more margin for the payload. The nose cone is a tricky place to cut weight, though. It sits at the very front of the rocket, so its mass helps keep the center of gravity ahead of the center of pressure, which is what keeps the rocket flying straight. Any weight I take out has to be checked against the rocket's stability.</p>
+            <h4>What the nose cone has to handle</h4>
             <ul>
-              <li>Rocket architecture and how the subsystems are laid out</li>
-              <li>The loads a rocket sees in flight and how the structure carries them</li>
+              <li>Aerodynamic pressure and heating at the tip, where the airflow hits first</li>
+              <li>Axial loads during launch and motor burn</li>
+              <li>Shock loads during recovery, when the parachutes deploy</li>
             </ul>
+            <h4>What I'm learning</h4>
+            <p>Rocket architecture, how loads travel through the structure in flight, and how to design a part around strength, weight and manufacturability all at once.</p>
           </div>
         </article>
 
@@ -613,8 +641,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="project-row">
             <span class="status progress">In progress</span>
             <div class="ptext">
-              <h3><button class="project-open" type="button">Flying Wing UAV</button></h3>
-              <p class="summary">A mid size flying wing drone we're designing and building from scratch, frame and all.</p>
+              <h3><button class="project-open" type="button">Autonomous Flying Wing UAV</button></h3>
+              <p class="summary">A flying wing drone that flies itself over an area in search patterns and flags unusual movement, so people only review what it finds.</p>
             </div>
             <img class="thumb" src="photos/project-flying-wing.jpg" alt="" loading="lazy" onerror="this.remove()">
             <span class="arrow" aria-hidden="true">Details →</span>
@@ -622,18 +650,27 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="more">
             <!-- EDIT: add a photo named project-flying-wing.jpg to the photos folder and describe it in alt="..." -->
             <img class="proj-img" src="photos/project-flying-wing.jpg" alt="Flying wing drone frame in progress" loading="lazy" onerror="this.remove()">
-            <p>A friend and I are building a flying wing drone similar in size to the Skywalker X8. Instead of buying a kit, we're making our own frame, and we're doing every part of the build together. The long term goal is autonomous, AI assisted flight, and we plan to turn the project into a registered student club at UW.</p>
-            <dl class="specs">
+            <p>A friend and I started this project to design and build a mid size flying wing drone from scratch, similar in size to the Skywalker X8. Instead of buying a kit, we're making our own frame with a fiberglass skin. We're now expanding the team and registering it as a Registered Student Organization (RSO) at UW.</p>
+            <dl class="specs three">
               <div><dt>Layout</dt><dd>Flying wing</dd></div>
               <div><dt>Size</dt><dd>Mid size</dd></div>
               <div><dt>Skin</dt><dd>Fiberglass</dd></div>
-              <div><dt>Team</dt><dd>2 people</dd></div>
+              <div><dt>Team</dt><dd>Started by 2, growing</dd></div>
+              <div><dt>Flight</dt><dd>Autonomous (planned)</dd></div>
+              <div><dt>Mission</dt><dd>Area surveillance</dd></div>
             </dl>
-            <h4>Next up</h4>
-            <ul>
-              <li>Finalize the wing geometry</li>
-              <li>Build and test the frame</li>
-            </ul>
+            <h4>The problem</h4>
+            <p>When a drone is flown manually to watch over an area, the operator has to pilot it and stare at the camera feed the entire time, scanning everything it sees. That takes a lot of time and attention, and it's easy to miss something important.</p>
+            <h4>Our goal</h4>
+            <p>We want the drone to fly itself over a field or area in a set search pattern and use AI on its camera feed to flag anything unusual, like unexpected movement. Instead of watching the whole flight, soldiers or anyone else using it would only be directed to review the moments the drone flagged, saving their time and attention for what actually matters.</p>
+            <h4>How it would work</h4>
+            <ol>
+              <li>Choose the area to cover on a map</li>
+              <li>The drone flies a back and forth search pattern on its own</li>
+              <li>Onboard computer vision watches the camera feed for movement or anything out of place</li>
+              <li>Each detection gets flagged with its location and an image</li>
+              <li>The operator reviews only the flagged detections</li>
+            </ol>
           </div>
         </article>
 
@@ -642,7 +679,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
             <span class="status done">Completed</span>
             <div class="ptext">
               <h3><button class="project-open" type="button">Flight Endurance Aircraft</button></h3>
-              <p class="summary">A fixed wing aircraft designed to stay in the air as long as possible. Placed 4th at State in 2024 and 2025.</p>
+              <p class="summary">A rubber band powered model aircraft built to stay in the air as long as possible. Placed 4th at State in 2024 and 2025.</p>
             </div>
             <img class="thumb" src="photos/project-flight-endurance.jpg" alt="" loading="lazy" onerror="this.remove()">
             <span class="arrow" aria-hidden="true">Details →</span>
@@ -650,17 +687,33 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
           <div class="more">
             <!-- EDIT: add a photo named project-flight-endurance.jpg to the photos folder and describe it in alt="..." -->
             <img class="proj-img" src="photos/project-flight-endurance.jpg" alt="The flight endurance aircraft" loading="lazy" onerror="this.remove()">
-            <p>I engineered a fixed wing aircraft for maximum flight endurance, optimizing airfoil selection, wing loading and center of gravity placement to improve its lift to drag ratio. The design went through several rounds of CAD and flight testing.</p>
-            <dl class="specs">
-              <div><dt>Goal</dt><dd>Maximum flight time</dd></div>
+            <p>For the Technology Student Association (TSA) Flight Endurance event, I designed and built a rubber band powered model aircraft with one goal: stay in the air as long as possible. I competed with it two years in a row and placed 4th at the Washington State TSA conference both times.</p>
+            <dl class="specs three">
+              <div><dt>Event</dt><dd>TSA Flight Endurance</dd></div>
+              <div><dt>Power</dt><dd>Rubber band</dd></div>
+              <div><dt>Goal</dt><dd>Maximum time aloft</dd></div>
               <div><dt>Result</dt><dd>4th at State, 2024 and 2025</dd></div>
-              <div><dt>Process</dt><dd>Iterative CAD and flight tests</dd></div>
+              <div><dt>Process</dt><dd>CAD and flight testing</dd></div>
+              <div><dt>Submitted</dt><dd>Plane and design portfolio</dd></div>
             </dl>
+            <h4>How the event works</h4>
+            <p>Every plane is powered only by a wound up rubber band, so everyone starts with about the same small amount of stored energy. The plane that stays in the air the longest wins. Along with the flights, each competitor turns in a documentation portfolio that explains the design and testing behind their plane.</p>
+            <h4>The engineering challenge</h4>
+            <p>Since the energy in the rubber band is fixed, flight time comes down to how little power the plane needs to stay up. That means keeping it as light as possible and getting as much lift as possible for as little drag. In other words, the whole design is about maximizing the lift to drag ratio while keeping weight down.</p>
             <h4>What I worked on</h4>
             <ul>
-              <li>Airfoil selection</li>
-              <li>Wing loading</li>
-              <li>Center of gravity placement</li>
+              <li><strong>Airfoil selection:</strong> choosing a wing shape that makes lift efficiently at the slow speeds these planes fly</li>
+              <li><strong>Wing loading:</strong> balancing wing area against total weight so the plane can fly slowly without stalling</li>
+              <li><strong>Center of gravity:</strong> placing it so the plane flies stable and smooth instead of stalling or diving</li>
+            </ul>
+            <h4>Design process</h4>
+            <p>I designed the plane in CAD, built it, and then flight tested it. Based on how it flew, I adjusted the design and tested again, repeating that loop to keep improving its time in the air.</p>
+            <h4>What I learned</h4>
+            <ul>
+              <li>How a fixed energy budget drives every design decision</li>
+              <li>How small changes in weight and drag make a big difference in performance</li>
+              <li>Why flight testing matters as much as the design on paper</li>
+              <li>How to document design choices and test results clearly</li>
             </ul>
           </div>
         </article>
@@ -843,7 +896,7 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 
 <!-- Project popup (filled in automatically from the project you click) -->
 <dialog id="project-dialog" aria-labelledby="dlg-title">
-  <div class="dlg-head"><h3 id="dlg-title"></h3><div class="dlg-actions"><button class="dlg-close" type="button" id="dlg-link">Copy link</button><button class="dlg-close" type="button" id="dlg-close">Close ✕</button></div></div>
+  <div class="dlg-head"><h3 id="dlg-title"></h3><div class="dlg-actions"><button class="dlg-close" type="button" id="dlg-close">Close ✕</button></div></div>
   <div class="dlg-body" id="dlg-body"></div>
 </dialog>
 
@@ -909,11 +962,6 @@ dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); 
 dlg.addEventListener('close', function () {
   if (openId && location.hash === '#' + openId) { try { history.replaceState(null, '', '#projects'); } catch (e) {} }
   openId = null;
-});
-document.getElementById('dlg-link').addEventListener('click', function () {
-  var btn = this, url = location.href;
-  try { navigator.clipboard.writeText(url).then(function () { btn.textContent = 'Link copied'; setTimeout(function () { btn.textContent = 'Copy link'; }, 1600); }, function () { btn.textContent = url; }); }
-  catch (e) { btn.textContent = url; }
 });
 function openFromHash() {
   var id = location.hash.slice(1);
