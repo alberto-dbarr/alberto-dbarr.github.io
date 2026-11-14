@@ -27,7 +27,7 @@ Tips:
 The form sends messages to your Gmail through Formspree, so your email address
 never appears on the website.
 
-1. Go to formspree.io and sign up with barragan7025@gmail.com. Confirm the email they send you.
+1. Go to formspree.io and sign up with Confirm the email they send you.
 2. Click "New Form", name it "Website contact", and create it.
 3. Formspree shows an endpoint like https://formspree.io/f/abcdwxyz. Copy the last part (abcdwxyz).
 4. In index.html, search for YOUR_FORM_ID and replace it with that ID.
